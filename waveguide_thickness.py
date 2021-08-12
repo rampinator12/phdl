@@ -124,10 +124,10 @@ def graph(x_list, y_list):
         x_pt = [x_list[i], x_list[i+1]]
         y_pt = [y_list[i], y_list[i+1]]
         if x_list[i] == x_list[i+1]:
-            plt.vlines(x_pt[0], y_pt[0], y_pt[1])
+            plt.vlines(x_pt[0], y_pt[0], y_pt[1], colors = 'r')
         else:
             m, b = np.polyfit(x_pt, y_pt,1)
-            plt.plot(points, points*m +b)
+            plt.plot(points, points*m +b, colors = 'r')
 
 
 
