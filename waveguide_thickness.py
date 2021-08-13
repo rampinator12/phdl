@@ -1,9 +1,3 @@
-"""
-Created on Fri Jul 30 15:18:33 2021
-
-@author: dsr1
-"""
-
 # -*- coding: utf-8 -*-
 """
 Created on Wed Jul  7 08:57:33 2021
@@ -12,7 +6,6 @@ Created on Wed Jul  7 08:57:33 2021
 """
 import numpy as np
 from matplotlib import pyplot as plt
-import sys
 import math
 
 def parallel_pt_displacement(x1, x2, y1, y2,w): #gives x/y displacement from initial point of line
@@ -25,16 +18,20 @@ def parallel_pt_displacement(x1, x2, y1, y2,w): #gives x/y displacement from ini
                 x = -w  #vertical line up
                 y = 0
             else:
-                x = w   #vertical line down
+                x = -w   #vertical line down
                 y = 0
         else:
             theta = abs(np.arctan(y_theta/x_theta))  #sloped line up
             x = w*np.cos(theta + np.pi/2)
             y = w*np.sin(theta + np.pi/2)
     elif y_theta < 0:
-        theta = abs(np.arctan(y_theta/x_theta))      #sloped line down
-        x = w*np.cos(np.pi/2 - theta)
-        y = w*np.sin(np.pi/2 - theta)
+        if x_theta == 0:
+            x = w
+            y = 0
+        else:    
+            theta = abs(np.arctan(y_theta/x_theta))      #sloped line down
+            x = w*np.cos(np.pi/2 - theta)
+            y = w*np.sin(np.pi/2 - theta)
     elif y_theta == 0:
         x = 0
         y = w
@@ -124,20 +121,20 @@ def graph(x_list, y_list):
         x_pt = [x_list[i], x_list[i+1]]
         y_pt = [y_list[i], y_list[i+1]]
         if x_list[i] == x_list[i+1]:
-            plt.vlines(x_pt[0], y_pt[0], y_pt[1], colors = 'r')
+            plt.vlines(x_pt[0], y_pt[0], y_pt[1], color = 'red')
         else:
             m, b = np.polyfit(x_pt, y_pt,1)
-            plt.plot(points, points*m +b, colors = 'r')
+            plt.plot(points, points*m +b, color = 'red')
 
 
 
 #list of points/ widths. Note, width is n-1 to n points
 #Change points/ width                
-x = [0,1,3,3,4,5,5,6]
-y = [0,-1,2,4,7,8,9,10]
-w = [0.2,0.1,0.3,0.1,0.4,0.1,0.2]
+x = [0,1,1,3,2]
+y = [0,1,0,0,2]
+w = [0.2,0.1,0.3,0.1]
 
-vals = new_values(x,y,w)
+vals = new_values(x,y,w) #wide values
 x_wide, y_wide = wide_points(x, y, vals) 
 
 #graphs original/ wide set
